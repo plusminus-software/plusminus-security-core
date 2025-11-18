@@ -1,4 +1,4 @@
-package software.plusminus.security;
+package software.plusminus.security.model;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
