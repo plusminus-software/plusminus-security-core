@@ -1,6 +1,6 @@
 package software.plusminus.security.service;
 
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 import javax.annotation.Nullable;
 

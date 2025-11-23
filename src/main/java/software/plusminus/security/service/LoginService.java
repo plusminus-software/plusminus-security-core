@@ -2,7 +2,7 @@ package software.plusminus.security.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 import java.util.List;
 import java.util.Objects;

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import software.plusminus.context.Context;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 import software.plusminus.security.service.SecurityProvider;
 
 import java.util.List;

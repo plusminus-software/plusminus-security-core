@@ -1,7 +1,7 @@
 package software.plusminus.security.service;
 
 import org.springframework.lang.Nullable;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 public interface LoginProvider {
 
