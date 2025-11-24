@@ -4,12 +4,9 @@ import software.plusminus.security.Security;
 
 import javax.annotation.Nullable;
 
-public interface SecurityProvider {
+public interface CredentialService {
 
     @Nullable
-    String getToken(Security security);
-
-    @Nullable
-    Security getSecurity(String token);
+    Security provideSecurity(String user, String password);
 
 }

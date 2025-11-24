@@ -5,21 +5,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import software.plusminus.context.Context;
 import software.plusminus.security.Security;
-import software.plusminus.security.service.SecurityProvider;
-
-import java.util.List;
-import java.util.Objects;
+import software.plusminus.security.service.SecurityService;
 
 @Configuration
 @ComponentScan("software.plusminus.security")
 public class SecurityAutoconfig {
 
     @Bean
-    Context<Security> securityContext(List<SecurityProvider> providers) {
-        return Context.of(() -> providers.stream()
-                .map(SecurityProvider::provideSecurity)
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null));
+    Context<Security> securityContext(SecurityService service) {
+        return Context.of(service::getSecurity);
     }
 }
