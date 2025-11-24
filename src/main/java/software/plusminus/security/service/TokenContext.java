@@ -2,10 +2,10 @@ package software.plusminus.security.service;
 
 import javax.annotation.Nullable;
 
-public interface TokenManager {
+public interface TokenContext {
 
     @Nullable
-    String fetchToken();
+    String getToken();
 
     boolean setToken(String token);
 
