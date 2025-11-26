@@ -4,7 +4,7 @@ import software.plusminus.security.Security;
 
 import javax.annotation.Nullable;
 
-public interface TokenService {
+public interface TokenProcessor {
 
     @Nullable
     String getToken(Security security);

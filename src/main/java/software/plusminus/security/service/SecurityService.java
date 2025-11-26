@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 public class SecurityService {
 
     private List<TokenContext> tokenContexts;
-    private List<TokenService> tokenServices;
+    private List<TokenProcessor> tokenProcessors;
     private List<CredentialService> credentialServices;
 
     @Nullable
@@ -26,8 +26,8 @@ public class SecurityService {
         if (token == null) {
             return null;
         }
-        return tokenServices.stream()
-                .map(tokenService -> tokenService.getSecurity(token))
+        return tokenProcessors.stream()
+                .map(tokenProcessor -> tokenProcessor.getSecurity(token))
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null);
@@ -43,8 +43,8 @@ public class SecurityService {
         if (security == null) {
             return null;
         }
-        String token = tokenServices.stream()
-                .map(tokenService -> tokenService.getToken(security))
+        String token = tokenProcessors.stream()
+                .map(tokenProcessor -> tokenProcessor.getToken(security))
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null);
