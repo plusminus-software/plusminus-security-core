@@ -34,7 +34,7 @@ public class SecurityService {
     }
 
     @Nullable
-    public String getToken(String user, String password) {
+    public String createToken(String user, String password) {
         Security security = credentialServices.stream()
                 .map(credentialService -> credentialService.provideSecurity(user, password))
                 .filter(Objects::nonNull)
