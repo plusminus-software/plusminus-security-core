@@ -17,6 +17,6 @@ public class Security {
     @Builder.Default
     private Set<String> roles = Collections.emptySet();
     @Builder.Default
-    private Map<String, String> others = Collections.emptyMap();
+    private Map<String, String> parameters = Collections.emptyMap();
     
 }

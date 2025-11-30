@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import software.plusminus.security.Security;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 @AllArgsConstructor
@@ -15,6 +19,7 @@ public class SecurityService {
     private List<TokenContext> tokenContexts;
     private List<TokenProcessor> tokenProcessors;
     private List<CredentialService> credentialServices;
+    private List<SecurityParameterProvider> parameterProviders;
 
     @Nullable
     public Security getSecurity() {
@@ -43,8 +48,9 @@ public class SecurityService {
         if (security == null) {
             return null;
         }
+        Security processedSecurity = processSecurity(security);
         String token = tokenProcessors.stream()
-                .map(tokenProcessor -> tokenProcessor.getToken(security))
+                .map(tokenProcessor -> tokenProcessor.getToken(processedSecurity))
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null);
@@ -64,6 +70,24 @@ public class SecurityService {
 
     public void clearToken() {
         tokenContexts.forEach(TokenContext::clearToken);
+    }
+
+    private Security processSecurity(Security originalSecurity) {
+        return Security.builder()
+                .username(originalSecurity.getUsername())
+                .roles(originalSecurity.getRoles())
+                .parameters(getSecurityParameters(originalSecurity))
+                .build();
+    }
+
+    private Map<String, String> getSecurityParameters(Security originalSecurity) {
+        Stream<Map.Entry<String, String>> providedParameters = parameterProviders.stream()
+                .map(SecurityParameterProvider::providerParameter)
+                .filter(Objects::nonNull);
+        return Stream.concat(originalSecurity.getParameters().entrySet().stream(), providedParameters)
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue),
+                        Collections::unmodifiableMap));
     }
 }
 
